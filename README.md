@@ -1,6 +1,6 @@
 # Banking AI Agent
 
-ING Hubs benzeri bir bankacılık kurumu için, [LangGraph](https://www.langchain.com/langgraph)
+Herhangi bir bankacılık kurumu için kullanılabilecek, [LangGraph](https://www.langchain.com/langgraph)
 state machine mimarisiyle çalışan, [Groq](https://groq.com/) üzerinde
 Llama-3.3 modelini kullanan konuşma tabanlı bir bankacılık asistanı.
 Gerçek müşteri verisi kullanmadan, sentetik olarak üretilmiş hesap ve
@@ -14,6 +14,12 @@ Bankacılık müşteri hizmetlerinde sıkça sorulan "bakiyem ne kadar?",
 gerçek zamanlı veri sorgulayan ve niyet bazlı yönlendirme yapan bir AI agent
 ile yanıtlamayı gösteren bir referans/demo projesidir. Gerçek banka altyapısı
 veya müşteri verisi içermez; tüm veriler `Faker` ile sentetik olarak üretilir.
+Mimari, herhangi bir bankanın mevcut müşteri veritabanına entegre edilebilecek
+şekilde genel ve kuruma bağımsız tasarlanmıştır.
+
+## System in Action
+
+![Demo Screenshot](assets/demo_screenshot.png)
 
 ## Mimari: LangGraph State Machine
 
@@ -98,6 +104,8 @@ DROP & CREATE eder.
 
 ```
 banking-ai-agent/
+├── assets/
+│   └── demo_screenshot.png  # Demo ekran görüntüsü
 ├── data/
 │   └── generate_data.py     # Sentetik müşteri/işlem üretici
 ├── tools/
