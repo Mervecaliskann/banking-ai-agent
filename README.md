@@ -1,5 +1,3 @@
-# Banking AI Agent
-
 ---
 title: Banking AI Agent
 emoji: 🏦
@@ -10,6 +8,9 @@ sdk_version: "1.32.0"
 app_file: app.py
 pinned: false
 ---
+
+# 🏦 Banking AI Agent
+...
 
 Herhangi bir bankacılık kurumu için kullanılabilecek, [LangGraph](https://www.langchain.com/langgraph)
 state machine mimarisiyle çalışan, [Groq](https://groq.com/) üzerinde
