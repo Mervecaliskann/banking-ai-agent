@@ -29,8 +29,10 @@ def get_customers():
 
 
 if not DB_PATH.exists():
-    st.error("Veritabani bulunamadi. Once `python data/generate_data.py` calistirin.")
-    st.stop()
+    from data.generate_data import main as generate_data
+
+    with st.spinner("Sentetik veritabani olusturuluyor..."):
+        generate_data()
 
 customers = get_customers()
 customer_options = {f"{name} (#{cid})": (cid, balance) for cid, name, balance in customers}
