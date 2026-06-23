@@ -1,5 +1,7 @@
 # Banking AI Agent
-Live Demo: huggingface.co/spaces/Mervecaliskan/banking-ai-agent
+
+**Live Demo:** huggingface.co/spaces/Mervecaliskan/banking-ai-agent
+
 Herhangi bir bankacılık kurumu için kullanılabilecek, [LangGraph](https://www.langchain.com/langgraph)
 state machine mimarisiyle çalışan, [Groq](https://groq.com/) üzerinde
 Llama-3.3 modelini kullanan konuşma tabanlı bir bankacılık asistanı.
