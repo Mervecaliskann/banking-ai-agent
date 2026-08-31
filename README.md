@@ -16,11 +16,10 @@ pinned: false
 
 **🚀 Live Demo:** [banking-agent on Azure](http://banking-agent.agreeablewater-e71d04d4.northeurope.azurecontainerapps.io)
 
-**Live Demo:** huggingface.co/spaces/Mervecaliskan/banking-ai-agent
 
 Herhangi bir bankacılık kurumu için kullanılabilecek, [LangGraph](https://www.langchain.com/langgraph)
 state machine mimarisiyle çalışan, [Groq](https://groq.com/) üzerinde
-Llama-3.3 modelini kullanan konuşma tabanlı bir bankacılık asistanı.
+gpt-oss-120b (Groq) modelini kullanan konuşma tabanlı bir bankacılık asistanı.
 Gerçek müşteri verisi kullanmadan, sentetik olarak üretilmiş hesap ve
 işlem kayıtları üzerinden çalışır; kullanıcı doğal dilde soru sorar, agent
 bu soruyu SQL/pandas sorgularına çevirip Türkçe, anlaşılır bir yanıt üretir.
@@ -160,7 +159,7 @@ streamlit run app.py
 
 - **LangGraph** — niyet bazlı koşullu yönlendirme yapan state machine
 - **LangChain** — tool tanımları
-- **Groq (Llama-3.3-70b-versatile)** — niyet sınıflandırma ve doğal dil yanıt üretimi
+- **gpt-oss-120b (Groq)** — niyet sınıflandırma ve doğal dil yanıt üretimi
 - **SQLite + pandas** — sentetik veri saklama ve sorgulama
 - **Streamlit** — chat arayüzü
 - **Faker** — Türkçe sentetik veri üretimi
