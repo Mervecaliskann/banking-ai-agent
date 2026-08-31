@@ -69,7 +69,7 @@ yapan bir graph olarak tasarlanmıştır:
                      └───────────┘
 ```
 
-- **parse_intent**: `ChatGroq` (llama-3.3-70b-versatile) kullanıcı mesajını
+- **parse_intent**: `ChatGroq` (gpt-oss-120b) kullanıcı mesajını
   JSON formatında sınıflandırır — niyet (`intent`), zaman aralığı (`period`:
   bu ay / geçen ay), kategori ve varsa işlem limiti çıkarılır.
 - **conditional routing**: `add_conditional_edges` ile, ayrı bir yürütme
@@ -159,7 +159,7 @@ streamlit run app.py
 
 - **LangGraph** — niyet bazlı koşullu yönlendirme yapan state machine
 - **LangChain** — tool tanımları
-- **gpt-oss-120b (Groq)** — niyet sınıflandırma ve doğal dil yanıt üretimi
+- **Groq (gpt-oss-120b)** — niyet sınıflandırma ve doğal dil yanıt üretimi
 - **SQLite + pandas** — sentetik veri saklama ve sorgulama
 - **Streamlit** — chat arayüzü
 - **Faker** — Türkçe sentetik veri üretimi
