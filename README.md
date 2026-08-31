@@ -12,6 +12,10 @@ pinned: false
 # 🏦 Banking AI Agent
 ...
 
+[![Deployed on Azure](https://img.shields.io/badge/Deployed_on-Azure_Container_Apps-0078D4?logo=microsoftazure&logoColor=white)](http://banking-agent.agreeablewater-e71d04d4.northeurope.azurecontainerapps.io)
+
+**🚀 Live Demo:** [banking-agent on Azure](http://banking-agent.agreeablewater-e71d04d4.northeurope.azurecontainerapps.io)
+
 Herhangi bir bankacılık kurumu için kullanılabilecek, [LangGraph](https://www.langchain.com/langgraph)
 state machine mimarisiyle çalışan, [Groq](https://groq.com/) üzerinde
 Llama-3.3 modelini kullanan konuşma tabanlı bir bankacılık asistanı.
