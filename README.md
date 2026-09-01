@@ -10,12 +10,11 @@ pinned: false
 ---
 
 # 🏦 Banking AI Agent
-...
 
 [![Deployed on Azure](https://img.shields.io/badge/Deployed_on-Azure_Container_Apps-0078D4?logo=microsoftazure&logoColor=white)](http://banking-agent.agreeablewater-e71d04d4.northeurope.azurecontainerapps.io)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows/deploy.yml)
 
 **🚀 Live Demo:** [banking-agent on Azure](http://banking-agent.agreeablewater-e71d04d4.northeurope.azurecontainerapps.io)
-
 
 Herhangi bir bankacılık kurumu için kullanılabilecek, [LangGraph](https://www.langchain.com/langgraph)
 state machine mimarisiyle çalışan, [Groq](https://groq.com/) üzerinde
@@ -24,7 +23,22 @@ Gerçek müşteri verisi kullanmadan, sentetik olarak üretilmiş hesap ve
 işlem kayıtları üzerinden çalışır; kullanıcı doğal dilde soru sorar, agent
 bu soruyu SQL/pandas sorgularına çevirip Türkçe, anlaşılır bir yanıt üretir.
 
-## Amaç
+Proje, bir agent yazmanın ötesine geçer: uygulama **Docker ile
+container'lanmış**, **Azure Container Apps** üzerinde canlıya alınmış ve
+**GitHub Actions CI/CD pipeline'ı** ile `main`'e her push'ta otomatik olarak
+build edilip deploy edilecek şekilde kurulmuştur.
+
+---
+
+*An LLM-powered conversational banking assistant built on a [LangGraph](https://www.langchain.com/langgraph)
+state machine, using gpt-oss-120b via [Groq](https://groq.com/). It runs on
+synthetic (Faker-generated) account and transaction data — no real customer
+data — turning natural-language questions into SQL/pandas queries and returning
+clear answers. Beyond the agent itself, the app is **containerized with Docker**,
+**deployed live on Azure Container Apps**, and wired to a **GitHub Actions
+CI/CD pipeline** that automatically builds and deploys on every push to `main`.*
+
+## Amaç / Purpose
 
 Bankacılık müşteri hizmetlerinde sıkça sorulan "bakiyem ne kadar?",
 "bu ay en çok neye harcadım?", "anormal bir harcama var mı?" gibi soruları,
@@ -117,10 +131,51 @@ DROP & CREATE eder.
 | "Geçen ay markete ne kadar harcadım?" | `summarize` (spending + kategori filtresi) |
 | "Bu ay normalden fazla harcama var mı?" | `alert` (anomaly) |
 
+## Deployment (Azure Container Apps)
+
+Uygulama container'lanmış ve Azure üzerinde canlıya alınmıştır:
+
+- **Docker**: `Dockerfile` ile Streamlit uygulaması container image'ına
+  paketlenir. `.dockerignore` ile `venv/`, `.env`, `.git/` gibi dosyalar
+  image dışında tutulur (güvenlik + boyut).
+- **Azure Container Registry (ACR)**: Image build edilip özel registry'e
+  push edilir.
+- **Azure Container Apps**: Image serverless olarak yayına alınır; dışarıya
+  açık (`ingress: external`) bir HTTPS URL'i üretilir. `min-replicas 0` ile
+  kullanılmadığında sıfıra ölçeklenir (maliyet kontrolü).
+- **Secret yönetimi**: `GROQ_API_KEY` image'a gömülmez; Azure Container Apps
+  secret'ı olarak runtime'da enjekte edilir.
+
+*The app is containerized with Docker, pushed to Azure Container Registry, and
+deployed on Azure Container Apps (external ingress, scale-to-zero). The
+`GROQ_API_KEY` is never baked into the image — it is injected at runtime via an
+Azure Container Apps secret.*
+
+## CI/CD (GitHub Actions)
+
+`main` dalına her push'ta çalışan otomatik bir pipeline kuruludur
+([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)):
+
+1. **Checkout** — kod çekilir.
+2. **Azure login** — bir Azure *service principal* ile giriş yapılır
+   (kimlik bilgileri GitHub Secrets içinde `AZURE_CREDENTIALS` olarak tutulur).
+3. **Build & push** — Docker image build edilir ve ACR'a push edilir.
+4. **Deploy** — Azure Container App yeni image ile güncellenir.
+
+Böylece kod → canlı deployment süreci tamamen otomatiktir; elle deploy komutu
+çalıştırmaya gerek kalmaz.
+
+*A GitHub Actions pipeline builds the Docker image, pushes it to Azure Container
+Registry, and deploys to Azure Container Apps on every push to `main`, using an
+Azure service principal and GitHub Secrets for secure authentication.*
+
 ## Proje Yapısı
 
 ```
 banking-ai-agent/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml       # CI/CD pipeline (build + push + deploy)
 ├── assets/
 │   └── demo_screenshot.png  # Demo ekran görüntüsü
 ├── data/
@@ -130,11 +185,15 @@ banking-ai-agent/
 ├── agent/
 │   └── banking_agent.py     # LangGraph state machine
 ├── app.py                   # Streamlit chat arayüzü
+├── Dockerfile               # Container image tanımı
+├── .dockerignore
 ├── requirements.txt
 └── .env.example
 ```
 
 ## Kurulum ve Çalıştırma
+
+### Lokal (Python)
 
 ```bash
 # 1. Sanal ortam
@@ -146,13 +205,21 @@ pip install -r requirements.txt
 
 # 3. GROQ_API_KEY'inizi .env dosyasına ekleyin
 cp .env.example .env
-# .env içine: GROQ_API_KEY=sk-...
+# .env içine: GROQ_API_KEY=gsk-...
 
 # 4. Sentetik veriyi üret
 python data/generate_data.py
 
 # 5. Uygulamayı başlat
 streamlit run app.py
+```
+
+### Lokal (Docker)
+
+```bash
+docker build -t banking-agent .
+docker run -p 8501:8501 --env-file .env banking-agent
+# http://localhost:8501
 ```
 
 ## Tech Stack
@@ -163,3 +230,6 @@ streamlit run app.py
 - **SQLite + pandas** — sentetik veri saklama ve sorgulama
 - **Streamlit** — chat arayüzü
 - **Faker** — Türkçe sentetik veri üretimi
+- **Docker** — container'lama
+- **Azure Container Apps + ACR** — cloud deployment
+- **GitHub Actions** — CI/CD pipeline
