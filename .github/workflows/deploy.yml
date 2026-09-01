@@ -1,4 +1,3 @@
-@'
 name: Deploy to Azure Container Apps
 
 on:
@@ -37,4 +36,3 @@ jobs:
             --resource-group $RESOURCE_GROUP \
             --image $IMAGE \
             --set-env-vars GROQ_API_KEY=secretref:groq-key
-'@ | Set-Content -Path ".github/workflows/deploy.yml" -Encoding utf8
