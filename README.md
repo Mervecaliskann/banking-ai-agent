@@ -11,10 +11,10 @@ pinned: false
 
 # 🏦 Banking AI Agent
 
-[![Deployed on Azure](https://img.shields.io/badge/Deployed_on-Azure_Container_Apps-0078D4?logo=microsoftazure&logoColor=white)](http://banking-agent.agreeablewater-e71d04d4.northeurope.azurecontainerapps.io)
+![Deployed on Azure](https://img.shields.io/badge/Deployed_on-Azure_Container_Apps-0078D4?logo=microsoftazure&logoColor=white)
 [![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows/deploy.yml)
 
-**🚀 Live Demo:** [banking-agent on Azure](http://banking-agent.agreeablewater-e71d04d4.northeurope.azurecontainerapps.io)
+> The Azure deployment was taken offline when the free trial ended. See the screenshot below and run it locally with Docker.
 
 Herhangi bir bankacılık kurumu için kullanılabilecek, [LangGraph](https://www.langchain.com/langgraph)
 state machine mimarisiyle çalışan, [Groq](https://groq.com/) üzerinde
@@ -35,7 +35,7 @@ state machine, using gpt-oss-120b via [Groq](https://groq.com/). It runs on
 synthetic (Faker-generated) account and transaction data — no real customer
 data — turning natural-language questions into SQL/pandas queries and returning
 clear answers. Beyond the agent itself, the app is **containerized with Docker**,
-**deployed live on Azure Container Apps**, and wired to a **GitHub Actions
+**deployed on Azure Container Apps**, and wired to a **GitHub Actions
 CI/CD pipeline** that automatically builds and deploys on every push to `main`.*
 
 ## Amaç / Purpose
