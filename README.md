@@ -14,7 +14,9 @@ pinned: false
 ![Deployed on Azure](https://img.shields.io/badge/Deployed_on-Azure_Container_Apps-0078D4?logo=microsoftazure&logoColor=white)
 [![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows/deploy.yml)
 
-> The Azure deployment was taken offline when the free trial ended. See the screenshot below and run it locally with Docker.
+> The Azure deployment was taken offline when the free trial ended, and the automatic deploy on push is now turned off (the workflow can still be run by hand). See the screenshot below and run it locally with Docker.
+>
+> Model: the agent first ran on `llama-3.3-70b-versatile`. Groq retired that model, so the code now uses `openai/gpt-oss-120b`.
 
 Herhangi bir bankacılık kurumu için kullanılabilecek, [LangGraph](https://www.langchain.com/langgraph)
 state machine mimarisiyle çalışan, [Groq](https://groq.com/) üzerinde
@@ -26,7 +28,7 @@ bu soruyu SQL/pandas sorgularına çevirip Türkçe, anlaşılır bir yanıt ür
 Proje, bir agent yazmanın ötesine geçer: uygulama **Docker ile
 container'lanmış**, **Azure Container Apps** üzerinde canlıya alınmış ve
 **GitHub Actions CI/CD pipeline'ı** ile `main`'e her push'ta otomatik olarak
-build edilip deploy edilecek şekilde kurulmuştur.
+build edilip deploy edilecek şekilde kurulmuştu (Azure deneme süresi bitince kapatıldı).
 
 ---
 
@@ -36,7 +38,7 @@ synthetic (Faker-generated) account and transaction data — no real customer
 data — turning natural-language questions into SQL/pandas queries and returning
 clear answers. Beyond the agent itself, the app is **containerized with Docker**,
 **deployed on Azure Container Apps**, and wired to a **GitHub Actions
-CI/CD pipeline** that automatically builds and deploys on every push to `main`.*
+CI/CD pipeline** that built and deployed on every push to `main` (turned off when the Azure trial ended).*
 
 ## Amaç / Purpose
 
